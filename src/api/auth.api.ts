@@ -2,19 +2,17 @@ import api from './axios.config';
 import type { 
   LoginRequest, 
   LoginResponse, 
-  RegisterStudentRequest,
-  RegisterTeacherRequest
+  RegisterRequest
 } from '../types/auth.types';
 
 export const authApi = {
+  // Teacher login
   login: (data: LoginRequest) => 
     api.post<LoginResponse>('/api/auth/login', data),
   
-  registerStudent: (data: RegisterStudentRequest) => 
-    api.post('/api/auth/register/student', data),
-  
-  registerTeacher: (data: RegisterTeacherRequest) => 
-    api.post('/api/auth/register/teacher', data),
+  // Teacher registration (single endpoint)
+  register: (data: RegisterRequest) => 
+    api.post<LoginResponse>('/api/auth/register', data),
   
   logout: () => {
     localStorage.removeItem('token');

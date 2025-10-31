@@ -5,10 +5,10 @@ export const matrixApi = {
   getAll: () => 
     api.get<MatrixResponse[]>('/api/matrices'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<MatrixResponse>(`/api/matrices/${id}`),
   
-  getByExam: (examId: number) => 
+  getByExam: (examId: string) => 
     api.get<MatrixResponse[]>(`/api/matrices/exam/${examId}`),
   
   search: (name: string) => 
@@ -18,11 +18,11 @@ export const matrixApi = {
     api.post<MatrixResponse>('/api/matrices', data),
 
   createWithQuestions: (data: CreateMatrixWithQuestionsRequest) => 
-    api.post<MatrixWithQuestionsResponse>('/api/matrices/create-with-questions', data),
+    api.post<MatrixWithQuestionsResponse>('/api/matrices/with-questions', data),
   
-  update: (id: number, data: Partial<MatrixRequest>) => 
+  update: (id: string, data: Partial<MatrixRequest>) => 
     api.put<MatrixResponse>(`/api/matrices/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/matrices/${id}`),
 };

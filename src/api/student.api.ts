@@ -5,21 +5,18 @@ export const studentApi = {
   getAll: () => 
     api.get<StudentResponse[]>('/api/students'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<StudentResponse>(`/api/students/${id}`),
   
-  getMe: () => 
-    api.get<StudentResponse>('/api/students/me'),
+  search: (name: string) => 
+    api.get<StudentResponse[]>(`/api/students/search?name=${encodeURIComponent(name)}`),
   
   create: (data: StudentRequest) => 
     api.post<StudentResponse>('/api/students', data),
   
-  update: (id: number, data: Partial<StudentRequest>) => 
+  update: (id: string, data: Partial<StudentRequest>) => 
     api.put<StudentResponse>(`/api/students/${id}`, data),
   
-  updateMe: (data: Partial<StudentRequest>) => 
-    api.put<StudentResponse>('/api/students/me', data),
-  
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/students/${id}`),
 };

@@ -5,18 +5,21 @@ export const lessonApi = {
   getAll: () => 
     api.get<LessonResponse[]>('/api/lessons'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<LessonResponse>(`/api/lessons/${id}`),
   
-  getByGrade: (gradeId: number) => 
+  getByGrade: (gradeId: string) => 
     api.get<LessonResponse[]>(`/api/lessons/grade/${gradeId}`),
+  
+  search: (title: string) => 
+    api.get<LessonResponse[]>(`/api/lessons/search?title=${encodeURIComponent(title)}`),
   
   create: (data: LessonRequest) => 
     api.post<LessonResponse>('/api/lessons', data),
   
-  update: (id: number, data: Partial<LessonRequest>) => 
+  update: (id: string, data: Partial<LessonRequest>) => 
     api.put<LessonResponse>(`/api/lessons/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/lessons/${id}`),
 };

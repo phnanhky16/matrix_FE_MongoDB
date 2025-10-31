@@ -5,18 +5,18 @@ export const optionApi = {
   getAll: () => 
     api.get<OptionResponse[]>('/api/options'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<OptionResponse>(`/api/options/${id}`),
   
-  getByQuestion: (questionId: number) => 
+  getByQuestion: (questionId: string) => 
     api.get<OptionResponse[]>(`/api/options/question/${questionId}`),
   
   create: (data: OptionRequest) => 
     api.post<OptionResponse>('/api/options', data),
   
-  update: (id: number, data: Partial<OptionRequest>) => 
+  update: (id: string, data: Partial<OptionRequest>) => 
     api.put<OptionResponse>(`/api/options/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/options/${id}`),
 };

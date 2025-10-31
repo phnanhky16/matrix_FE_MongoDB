@@ -5,17 +5,14 @@ export const questionApi = {
   getAll: () => 
     api.get<QuestionResponse[]>('/api/questions'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<QuestionResponse>(`/api/questions/${id}`),
   
-  getByLesson: (lessonId: number) => 
+  getByLesson: (lessonId: string) => 
     api.get<QuestionResponse[]>(`/api/questions/lesson/${lessonId}`),
   
-  getByLevel: (levelId: number) => 
+  getByLevel: (levelId: string) => 
     api.get<QuestionResponse[]>(`/api/questions/level/${levelId}`),
-  
-  getByType: (typeId: number) => 
-    api.get<QuestionResponse[]>(`/api/questions/type/${typeId}`),
   
   search: (text: string) => 
     api.get<QuestionResponse[]>(`/api/questions/search?text=${encodeURIComponent(text)}`),
@@ -23,9 +20,9 @@ export const questionApi = {
   create: (data: QuestionRequest) => 
     api.post<QuestionResponse>('/api/questions', data),
   
-  update: (id: number, data: Partial<QuestionRequest>) => 
+  update: (id: string, data: Partial<QuestionRequest>) => 
     api.put<QuestionResponse>(`/api/questions/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/questions/${id}`),
 };

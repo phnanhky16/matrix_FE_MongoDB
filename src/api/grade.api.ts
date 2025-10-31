@@ -5,18 +5,18 @@ export const gradeApi = {
   getAll: () => 
     api.get<GradeResponse[]>('/api/grades'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<GradeResponse>(`/api/grades/${id}`),
   
-  getBySubject: (subjectId: number) => 
+  getBySubject: (subjectId: string) => 
     api.get<GradeResponse[]>(`/api/grades/subject/${subjectId}`),
   
   create: (data: GradeRequest) => 
     api.post<GradeResponse>('/api/grades', data),
   
-  update: (id: number, data: Partial<GradeRequest>) => 
+  update: (id: string, data: Partial<GradeRequest>) => 
     api.put<GradeResponse>(`/api/grades/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/grades/${id}`),
 };

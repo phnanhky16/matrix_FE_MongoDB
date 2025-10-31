@@ -5,15 +5,18 @@ export const subjectApi = {
   getAll: () => 
     api.get<SubjectResponse[]>('/api/subjects'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<SubjectResponse>(`/api/subjects/${id}`),
+  
+  search: (name: string) => 
+    api.get<SubjectResponse[]>(`/api/subjects/search?name=${encodeURIComponent(name)}`),
   
   create: (data: SubjectRequest) => 
     api.post<SubjectResponse>('/api/subjects', data),
   
-  update: (id: number, data: Partial<SubjectRequest>) => 
+  update: (id: string, data: Partial<SubjectRequest>) => 
     api.put<SubjectResponse>(`/api/subjects/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/subjects/${id}`),
 };

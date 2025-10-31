@@ -1,23 +1,22 @@
 import api from './axios.config';
 import type { ExamRequest, ExamResponse } from '../types/api.types';
-import type { ExamStatus } from '../types/common.types';
 
 export const examApi = {
   getAll: () => 
     api.get<ExamResponse[]>('/api/exams'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<ExamResponse>(`/api/exams/${id}`),
   
-  getByStatus: (status: ExamStatus) => 
-    api.get<ExamResponse[]>(`/api/exams/status/${status}`),
+  search: (name: string) => 
+    api.get<ExamResponse[]>(`/api/exams/search?name=${encodeURIComponent(name)}`),
   
   create: (data: ExamRequest) => 
     api.post<ExamResponse>('/api/exams', data),
   
-  update: (id: number, data: Partial<ExamRequest>) => 
+  update: (id: string, data: Partial<ExamRequest>) => 
     api.put<ExamResponse>(`/api/exams/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/exams/${id}`),
 };

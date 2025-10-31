@@ -5,21 +5,18 @@ export const teacherApi = {
   getAll: () => 
     api.get<TeacherResponse[]>('/api/teachers'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<TeacherResponse>(`/api/teachers/${id}`),
   
-  getMe: () => 
-    api.get<TeacherResponse>('/api/teachers/me'),
+  search: (name: string) => 
+    api.get<TeacherResponse[]>(`/api/teachers/search?name=${encodeURIComponent(name)}`),
   
   create: (data: TeacherRequest) => 
     api.post<TeacherResponse>('/api/teachers', data),
   
-  update: (id: number, data: Partial<TeacherRequest>) => 
+  update: (id: string, data: Partial<TeacherRequest>) => 
     api.put<TeacherResponse>(`/api/teachers/${id}`, data),
   
-  updateMe: (data: Partial<TeacherRequest>) => 
-    api.put<TeacherResponse>('/api/teachers/me', data),
-  
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/teachers/${id}`),
 };

@@ -1,4 +1,5 @@
 // API DTOs for Matrix Exam System
+// Updated for MongoDB with string IDs (ObjectId)
 
 // ============ Student ============
 export interface StudentRequest {
@@ -10,12 +11,11 @@ export interface StudentRequest {
 }
 
 export interface StudentResponse {
-  studentId: number;
+  studentId: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  status: 'ACTIVE' | 'INACTIVE';
   createdAt: string;
   updatedAt: string;
 }
@@ -29,7 +29,7 @@ export interface TeacherRequest {
 }
 
 export interface TeacherResponse {
-  teacherId: number;
+  teacherId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -44,7 +44,7 @@ export interface SubjectRequest {
 }
 
 export interface SubjectResponse {
-  subjectId: number;
+  subjectId: string;
   subjectName: string;
   subjectCode: string;
   createdAt: string;
@@ -56,15 +56,15 @@ export interface GradeRequest {
   gradeLevel: string;
   gradeName: string;
   description: string;
-  subjectId: number;
+  subjectId: string;
 }
 
 export interface GradeResponse {
-  gradeId: number;
+  gradeId: string;
   gradeLevel: string;
   gradeName: string;
   description: string;
-  subjectId: number;
+  subjectId: string;
   subjectName: string;
   createdAt: string;
   updatedAt: string;
@@ -76,16 +76,16 @@ export interface LessonRequest {
   lessonContent: string;
   lessonOrder: number;
   learningObjectives: string;
-  gradeId: number;
+  gradeId: string;
 }
 
 export interface LessonResponse {
-  lessonId: number;
+  lessonId: string;
   lessonTitle: string;
   lessonContent: string;
   lessonOrder: number;
   learningObjectives: string;
-  gradeId: number;
+  gradeId: string;
   gradeName: string;
   createdAt: string;
   updatedAt: string;
@@ -98,11 +98,10 @@ export interface QuestionTypeRequest {
 }
 
 export interface QuestionTypeResponse {
-  questionTypeId: number;
+  questionTypeId: string;
   typeName: string;
   description?: string;
   createdAt: string;
-  updatedAt: string;
 }
 
 // ============ Level ============
@@ -113,7 +112,7 @@ export interface LevelRequest {
 }
 
 export interface LevelResponse {
-  levelId: number;
+  levelId: string;
   levelName: string;
   difficultyScore: number;
   description: string;
@@ -125,23 +124,23 @@ export interface QuestionRequest {
   questionText: string;
   correctAnswer: string;
   marks: number;
-  explanation: string;
-  lessonId: number;
-  questionTypeId: number;
-  levelId: number;
+  explanation?: string;
+  lessonId: string;
+  questionTypeId: string;
+  levelId: string;
 }
 
 export interface QuestionResponse {
-  questionId: number;
+  questionId: string;
   questionText: string;
   correctAnswer: string;
   marks: number;
-  explanation: string;
-  lessonId: number;
+  explanation?: string;
+  lessonId: string;
   lessonTitle: string;
-  questionTypeId: number;
+  questionTypeId: string;
   questionTypeName: string;
-  levelId: number;
+  levelId: string;
   levelName: string;
   createdAt: string;
   updatedAt: string;
@@ -152,15 +151,15 @@ export interface OptionRequest {
   optionText: string;
   isCorrect: boolean;
   optionOrder: number;
-  questionId: number;
+  questionId: string;
 }
 
 export interface OptionResponse {
-  optionId: number;
+  optionId: string;
   optionText: string;
   isCorrect: boolean;
   optionOrder: number;
-  questionId?: number;
+  questionId?: string;
   questionText: string;
   createdAt: string;
 }
@@ -176,7 +175,7 @@ export interface ExamRequest {
 }
 
 export interface ExamResponse {
-  examId: number;
+  examId: string;
   examName: string;
   description: string;
   durationMinutes: number;
@@ -192,7 +191,7 @@ export interface MatrixRequest {
   matrixName: string;
   description: string;
   totalQuestions: number;
-  examId: number;
+  examId: string;
 }
 
 export interface CreateMatrixWithQuestionsRequest {
@@ -203,8 +202,8 @@ export interface CreateMatrixWithQuestionsRequest {
   examDate?: string; // ISO-8601
   matrixName: string;
   matrixDescription?: string;
-  lessonIds?: number[];
-  levelIds?: number[];
+  lessonIds?: string[];
+  levelIds?: string[];
   questionsPerLesson?: number;
   easyQuestions?: number;
   mediumQuestions?: number;
@@ -212,17 +211,17 @@ export interface CreateMatrixWithQuestionsRequest {
 }
 
 export interface MatrixWithQuestionsResponse {
-  matrixId: number;
+  matrixId: string;
   matrixName: string;
   description: string;
   totalQuestions: number;
-  examId: number;
+  examId: string;
   examName: string;
   durationMinutes?: number;
   totalMarks: number;
   passingMarks?: number;
   questions: {
-    questionId: number;
+    questionId: string;
     questionText: string;
     levelName: string;
     lessonTitle: string;
@@ -232,11 +231,11 @@ export interface MatrixWithQuestionsResponse {
 }
 
 export interface MatrixResponse {
-  matrixId: number;
+  matrixId: string;
   matrixName: string;
   description: string;
   totalQuestions: number;
-  examId: number;
+  examId: string;
   examName: string;
   createdAt: string;
   updatedAt: string;
@@ -244,16 +243,17 @@ export interface MatrixResponse {
 
 // ============ Exam Session ============
 export interface StartExamRequest {
-  examId: number;
-  matrixId: number;
+  studentEmail: string;
+  examId: string;
+  matrixId: string;
 }
 
 export interface ExamSessionResponse {
-  sessionId: number;
-  studentId: number;
-  examId: number;
+  sessionId: string;
+  studentId: string;
+  examId: string;
   examName: string;
-  matrixId: number;
+  matrixId: string;
   matrixName: string;
   startTime: string;
   endTime: string | null;
@@ -265,18 +265,18 @@ export interface ExamSessionResponse {
 
 // ============ Student Answer ============
 export interface SubmitAnswerRequest {
-  sessionId: number;
-  questionId: number;
-  selectedOptionId: number | null;
+  sessionId: string;
+  questionId: string;
+  selectedOptionId: string | null;
   textAnswer: string | null;
 }
 
 export interface StudentAnswerResponse {
-  answerId: number;
-  sessionId: number;
-  questionId: number;
+  answerId: string;
+  sessionId: string;
+  questionId: string;
   questionText: string;
-  selectedOptionId: number | null;
+  selectedOptionId: string | null;
   selectedOptionText: string | null;
   textAnswer: string | null;
   isCorrect: boolean | null;
@@ -285,11 +285,11 @@ export interface StudentAnswerResponse {
 
 // ============ Exam Result ============
 export interface ExamResultResponse {
-  resultId: number;
-  sessionId: number;
-  studentId: number;
+  resultId: string;
+  sessionId: string;
+  studentId: string;
   studentName: string;
-  examId: number;
+  examId: string;
   examName: string;
   score: number;
   percentage: number;
@@ -305,21 +305,21 @@ export interface ExamResultResponse {
 }
 
 export interface QuestionResultDetail {
-  questionId: number;
+  questionId: string;
   questionText: string;
   questionType: string;
   marks: number;
-  selectedOptionId: number | null;
+  selectedOptionId: string | null;
   selectedOptionText: string | null;
   textAnswer: string | null;
   isCorrect: boolean | null;
-  correctOptionId: number | null;
+  correctOptionId: string | null;
   correctOptionText: string | null;
   allOptions: OptionDetail[];
 }
 
 export interface OptionDetail {
-  optionId: number;
+  optionId: string;
   optionText: string;
   isCorrect: boolean;
   optionOrder: number;
@@ -327,7 +327,7 @@ export interface OptionDetail {
 
 // ============ Matrix Questions (Student View) ============
 export interface MatrixQuestionResponse {
-  questionId: number;
+  questionId: string;
   questionText: string;
   questionType: string;
   marks: number;
@@ -336,7 +336,7 @@ export interface MatrixQuestionResponse {
 }
 
 export interface QuestionOptionResponse {
-  optionId: number;
+  optionId: string;
   optionText: string;
   optionOrder: number;
 }
@@ -349,7 +349,7 @@ export interface AppSettingRequest {
 }
 
 export interface AppSettingResponse {
-  settingId: number;
+  settingId: string;
   settingKey: string;
   settingValue: string;
   description?: string;

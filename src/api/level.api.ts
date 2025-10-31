@@ -5,15 +5,15 @@ export const levelApi = {
   getAll: () => 
     api.get<LevelResponse[]>('/api/levels'),
   
-  getById: (id: number) => 
+  getById: (id: string) => 
     api.get<LevelResponse>(`/api/levels/${id}`),
   
   create: (data: LevelRequest) => 
     api.post<LevelResponse>('/api/levels', data),
   
-  update: (id: number, data: Partial<LevelRequest>) => 
+  update: (id: string, data: Partial<LevelRequest>) => 
     api.put<LevelResponse>(`/api/levels/${id}`, data),
   
-  delete: (id: number) => 
+  delete: (id: string) => 
     api.delete(`/api/levels/${id}`),
 };
